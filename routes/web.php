@@ -8,7 +8,7 @@ Route::controller(AuthenController::class)->group(function() {
     Route::get("/register", "register")->middleware("user-loggedin");
     Route::get("/login", "login")->middleware("user-loggedin");
     Route::post("/registration", "registerUser")->name("register-user");
-    Route::post("/login-user", "loginUser")->name("login-user")->middleware("throttle:5,1");
+    Route::post("/login-user", "loginUser")->name("login-user");
     Route::get("/", "dashboard")->name("dashboard");
     Route::get("/logout", "logout");
 });
