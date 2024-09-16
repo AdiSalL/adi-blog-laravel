@@ -18,11 +18,12 @@ class Post extends Model
 
     protected $fillable = [
         "title",
-        "body"
+        "body",
+        'category_id'
     ];
 
-    public function categories(): BelongsTo{
-        return $this->belongsTo(Categories::class, "id", "categories_id");
+    public function category(): BelongsTo{
+        return $this->belongsTo(Categories::class, "category_id");
     }
 
 }

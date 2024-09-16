@@ -15,7 +15,9 @@ class PostController extends Controller
 
     public function  create() {
         $categories = Categories::all();
-        return view("posts.create");
+        return view("posts.create", [
+            "categories" => $categories
+        ]);
     }
 
     public function store(Request $request) :RedirectResponse
@@ -23,12 +25,14 @@ class PostController extends Controller
         //
         $request->validate([
             "title" => "required|max:255",
-            "body" => "required"
+            "body" => "required",
+            "category_id" => "required|exists:categories,id"
         ]);
 
         Post::create([
             "title" => $request->title,
-            "body" => $request->body
+            "body" => $request->body,
+            "category_id" => $request->category_id
         ]);
 
         return redirect()->route("dashboard")->with("success", "New Post Has Been Added");
@@ -42,7 +46,8 @@ class PostController extends Controller
     public function show(string $id)
     {
         //
-        $posts = Post::findOrFail($id);
+        
+        $posts = Post::with("category")->findOrFail($id);
 
         return view("posts.show", [
             "posts" => $posts

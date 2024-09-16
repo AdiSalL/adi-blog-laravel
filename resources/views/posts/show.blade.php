@@ -21,6 +21,7 @@
 <ul>
     <li>{{$posts->title}}</li>
     <li>{{$posts->body}}</li>
+    <li>{{$posts->category->name}}</li>
 </ul>
 
 <a href="{{route("dashboard")}}">Back To All Post</a><br>

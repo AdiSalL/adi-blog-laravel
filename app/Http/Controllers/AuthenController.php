@@ -17,15 +17,15 @@ class AuthenController extends Controller
 
     public function registerUser(Request $request) { 
         $request->validate([
-            "name"=>  "required|min:8|max:100|string|unique",
-            "email" => "required|email|unique",
+            "name"=>  "required|min:8|max:100|string|unique:users",
+            "email" => "required|email|unique:users",
             "password"=> "required|min:8"
         ]);
 
         $user = User::create([
             "name" => $request->name,
             "email" => $request->email,
-            "password" => Hash::make($request->password),
+            "password" => $request->password,
         ]);
 
         if ($user) {
