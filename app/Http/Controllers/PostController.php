@@ -98,4 +98,12 @@ class PostController extends Controller
 
         return redirect()->route("dashboard")->with("success", "Post $post->id Already  Got Deleted  " );
     }
+
+    public function admin($id) {
+        $posts = Post::findOrFail($id);
+
+        return view("posts.adminpanel", [
+            "posts" => $posts
+        ]);
+    }
 }

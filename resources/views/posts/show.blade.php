@@ -24,7 +24,33 @@
     <li>{{$posts->category->name}}</li>
 </ul>
 
+@if(Auth::check())
+  <form action="{{route('comments.store', $posts->id)}}" method="POST">
+    @csrf
+    <label for="body">Leave a comment:</label>
+    <textarea name="body" id="body" cols="30" rows="10"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+@endif
+<h3>Comments</h3>
+@if($posts->comments->isEmpty())
+<p>No Comments</p>
+@endif
+<ul>
+  @foreach ($posts->comments as $comment)
+      @if($comment->approved)
+        <li>{{$comment->body}} - <strong>{{$comment->user->name ?? "Anonymous"}}</strong></li>
+      @else
+        <li>This comment is waiting for approval</li>
+      @endif
+  @endforeach
+</ul>
+
+
+
+
 <a href="{{route("dashboard")}}">Back To All Post</a><br>
+<a href="{{route("admin.panel", $posts->id)}}">Admin Panel</a><br>
 <a href="{{route("posts.edit", $posts->id)}}">Edit Post</a>
 <form action="{{route('posts.destroy', $posts->id)}}" method="POST">
   @csrf
