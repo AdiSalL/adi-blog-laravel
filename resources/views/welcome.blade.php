@@ -1,23 +1,17 @@
 @extends('layouts.layout')
 @section('content')
 
-    <h1>Dashboard</h1>
-    @auth
-        <p>{{Auth::user()->name}}</p>
-        <p>{{Auth::user()->email}}</p>
-        <a href="logout" class="btn btn-ghost">Log Out</a>
-    @else
-        <a href="login" class="btn btn-ghost">Log In</a>
-    @endauth
+    <h1>Welcome to my blog</h1>
+
 <div>
-    <h1>Example Blog Post</h1>
+    <h1 class="text-2xl font-bold">Here are my thought</h1>
     <ul class="mx-auto">
         @foreach ($posts as $post)
             <li><a href="{{route('posts.show', $post->id)}}">{{$post->title}}</a></li>
         @endforeach
     </ul>
 
-    <a href="{{ route('posts.create') }}">Create New Post</a>
+
 
     @if(session("success"))
     <div role="alert" class="alert alert-success">
